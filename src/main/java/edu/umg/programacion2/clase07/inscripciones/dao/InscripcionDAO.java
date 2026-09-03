@@ -94,8 +94,19 @@ public class InscripcionDAO {
      *    EstudianteDAO.actualizarNombre en la Clase 5).
      */
     public boolean registrarNota(int estudianteId, int cursoId, double nota) throws SQLException {
-        // TODO: completar.
-        return false;
+       String sql= " UPDATE inscripciones SET nota = ? WHERE estudiante_id = ? AND curso_id = ?";
+       
+       try(Connection conn=DriverManager.getConnection(URL, USUARIO, PASSWORD);
+    		   PreparedStatement ps=conn.prepareStatement(sql)){
+    	   
+    	   ps.setDouble(1, nota);
+    	   ps.setInt(2, estudianteId);
+    	   ps.setInt(3, cursoId);
+    	   
+    	   int filasAfectadas =ps.executeUpdate();
+    	   
+    	   return filasAfectadas >0;
+       }
     }
 
     /**
