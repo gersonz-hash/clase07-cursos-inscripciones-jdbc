@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,9 +28,9 @@ import java.util.Optional;
  */
 public class InscripcionDAO {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/prog2_db?useSSL=false&serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://localhost:3306/tarea5_db";
     private static final String USUARIO = "root";
-    private static final String PASSWORD = "tu_password_aqui";
+    private static final String PASSWORD = "Lessen08";
 
     /**
      * Inscribe a un estudiante en un curso. Retorna el id generado.
@@ -52,8 +53,30 @@ public class InscripcionDAO {
      *    vez de dejar que el error se propague sin explicacion.
      */
     public int inscribir(int estudianteId, int cursoId) throws SQLException {
-        // TODO: completar (ver pistas arriba). Recuerda el catch especifico
-        // para inscripciones duplicadas antes del catch general.
+        String sql = "INSERT INTO inscripciones (estudiante_id, curso_id) VALUES (?, ?)";
+        
+        try(Connection conn=DriverManager.getConnection(URL, USUARIO, PASSWORD);
+        		PreparedStatement ps=conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+        	
+        	//Lo que hace este código es recibir el ID de estudiante que está en el VALUES
+        	//y reemplaza lo que esté en los signos de interrogación ?
+        	ps.setInt(1, estudianteId);
+        	ps.setInt(2, cursoId);
+        	
+        	//este ejecuta el INSERT en la base de datos
+        	ps.executeUpdate();
+        	
+        	//rs.next comprueba si existe un resultado
+        	//rs.getInt(1) obtiene el primer valor del resultado
+        	try(ResultSet rs= ps.getGeneratedKeys()){
+        		if (rs.next()) {
+        			return rs.getInt(1);
+        		}
+        	}
+        }catch(SQLIntegrityConstraintViolationException e) {
+        	return -1;
+        }
+        		
         return -1;
     }
 

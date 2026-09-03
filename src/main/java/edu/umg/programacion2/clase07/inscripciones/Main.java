@@ -1,4 +1,4 @@
-package edu.umg.programacion2.clase07.inscripciones;
+ package edu.umg.programacion2.clase07.inscripciones;
 
 import edu.umg.programacion2.clase07.inscripciones.dao.CursoDAO;
 import edu.umg.programacion2.clase07.inscripciones.dao.EstudianteDAO;

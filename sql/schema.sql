@@ -1,4 +1,4 @@
--- Clase 7 - Cursos e Inscripciones: relacion muchos-a-muchos (N:M)
+ -- Clase 7 - Cursos e Inscripciones: relacion muchos-a-muchos (N:M)
 -- Ejecuta este script ANTES de correr el proyecto Java.
 
 CREATE DATABASE IF NOT EXISTS prog2_db;
