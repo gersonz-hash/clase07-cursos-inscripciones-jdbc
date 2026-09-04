@@ -223,6 +223,15 @@ SELECT *FROM inscripciones;
 SELECT AVG(i.nota) AS promedio
 	FROM inscripciones i
 	JOIN estudiantes e ON i.estudiante_id = e.id
-	WHERE e.carnet = '0905-25-0004'
+	WHERE e.carnet = '0905-25-0004';
+	
+	-- Consulta el curso con más estudiantes inscritos
+SELECT c.nombre, COUNT(*) AS total
+	FROM inscripciones i
+	JOIN cursos c ON i.curso_id = c.id
+	GROUP BY c.nombre
+	ORDER BY total DESC
+	LIMIT 1
+
 
 
