@@ -219,3 +219,10 @@ nota DECIMAL(4,2)NULL,
 
 SELECT *FROM inscripciones;
 
+-- Función para promediar en java con una lista 
+SELECT AVG(i.nota) AS promedio
+	FROM inscripciones i
+	JOIN estudiantes e ON i.estudiante_id = e.id
+	WHERE e.carnet = '0905-25-0004'
+
+
